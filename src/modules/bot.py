@@ -72,7 +72,6 @@ class Bot(Configurable):
         """
 
         print('\n[~] Initializing detection algorithm:\n')
-        model = detection.load_model()
         print('\n[~] Initialized detection algorithm')
 
         self.ready = True
@@ -98,7 +97,7 @@ class Bot(Configurable):
                 element = config.routine[config.routine.index]
                 if self.rune_active and isinstance(element, Point) \
                         and element.location == self.rune_closest_pos:
-                    self._solve_rune(model)
+                    self._solve_rune()
                     self.rune_active = False
                 element.execute()
                 config.routine.step()
@@ -106,7 +105,7 @@ class Bot(Configurable):
                 time.sleep(0.01)
 
     @utils.run_if_enabled
-    def _solve_rune(self, model):
+    def _solve_rune(self):
         """
         Moves to the position of the rune and solves the arrow-key puzzle.
         :param model:   The TensorFlow model to classify with.
@@ -124,13 +123,13 @@ class Bot(Configurable):
         print('\nSolving rune:')
         time.sleep(2)
         press('right', 1, down_time=0.1)
-        time.sleep(0.5)
+        time.sleep(0.1)
         press('left', 1, down_time=0.1)
-        time.sleep(0.5)
+        time.sleep(0.1)
         press('right', 1, down_time=0.1)
-        time.sleep(0.5)
+        time.sleep(0.1)
         press('right', 1, down_time=0.1)
-        time.sleep(0.5)
+        time.sleep(0.1)
 
     def load_commands(self, file):
         try:
