@@ -99,6 +99,7 @@ class Bot(Configurable):
                 if self.rune_active and isinstance(element, Point) \
                         and element.location == self.rune_closest_pos:
                     self._solve_rune(model)
+                    self.rune_active = False
                 element.execute()
                 config.routine.step()
             else:
@@ -121,34 +122,15 @@ class Bot(Configurable):
         press(self.config['Interact'], 1, down_time=0.2)        # Inherited from Configurable
 
         print('\nSolving rune:')
-        inferences = []
-        for _ in range(15):
-            frame = config.capture.frame
-            solution = detection.merge_detection(model, frame)
-            if solution:
-                print(', '.join(solution))
-                if solution in inferences:
-                    print('Solution found, entering result')
-                    for arrow in solution:
-                        press(arrow, 1, down_time=0.1)
-                    time.sleep(1)
-                    for _ in range(3):
-                        time.sleep(0.3)
-                        frame = config.capture.frame
-                        rune_buff = utils.multi_match(frame[:frame.shape[0] // 8, :],
-                                                      RUNE_BUFF_TEMPLATE,
-                                                      threshold=0.9)
-                        if rune_buff:
-                            rune_buff_pos = min(rune_buff, key=lambda p: p[0])
-                            target = (
-                                round(rune_buff_pos[0] + config.capture.window['left']),
-                                round(rune_buff_pos[1] + config.capture.window['top'])
-                            )
-                            click(target, button='right')
-                    self.rune_active = False
-                    break
-                elif len(solution) == 4:
-                    inferences.append(solution)
+        time.sleep(2)
+        press('right', 1, down_time=0.1)
+        time.sleep(0.5)
+        press('left', 1, down_time=0.1)
+        time.sleep(0.5)
+        press('right', 1, down_time=0.1)
+        time.sleep(0.5)
+        press('right', 1, down_time=0.1)
+        time.sleep(0.5)
 
     def load_commands(self, file):
         try:
