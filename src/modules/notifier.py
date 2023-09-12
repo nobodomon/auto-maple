@@ -70,11 +70,11 @@ class Notifier:
                 if np.count_nonzero(gray < 15) / height / width > self.room_change_threshold:
                     self._alert('siren')
 
-                # Check for elite warning
-                elite_frame = frame[height // 4:3 * height // 4, width // 4:3 * width // 4]
-                elite = utils.multi_match(elite_frame, ELITE_TEMPLATE, threshold=0.9)
-                if len(elite) > 0:
-                    self._alert('siren')
+                # # Check for elite warning
+                # elite_frame = frame[height // 4:3 * height // 4, width // 4:3 * width // 4]
+                # elite = utils.multi_match(elite_frame, ELITE_TEMPLATE, threshold=0.9)
+                # if len(elite) > 0:
+                #     self._alert('siren')
 
                 # Check for other players entering the map
                 filtered = utils.filter_color(minimap, OTHER_RANGES)

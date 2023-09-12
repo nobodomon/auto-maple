@@ -70,7 +70,7 @@ class KeyBindings(LabelFrame):
 
         if len(self.target.config) > 27:
             self.long = True
-            self.container = Frame(self, width=354, height=650)
+            self.container = Frame(self, width=650, height=1193)
             self.container.pack(side=tk.TOP, fill=tk.BOTH, expand=True, padx=(5, 0))
             self.container.pack_propagate(False)
             self.canvas = tk.Canvas(self.container, bd=0, highlightthickness=0)

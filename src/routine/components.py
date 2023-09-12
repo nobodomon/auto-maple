@@ -236,7 +236,8 @@ class Move(Command):
         self.prev_direction = ''
 
     def _new_direction(self, new):
-        key_down(new)
+        if new != 'up':
+            key_down(new)
         if self.prev_direction and self.prev_direction != new:
             key_up(self.prev_direction)
         self.prev_direction = new
