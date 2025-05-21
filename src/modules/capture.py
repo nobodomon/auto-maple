@@ -76,7 +76,7 @@ class Capture:
         mss.windows.CAPTUREBLT = 0
         while True:
             # Calibrate screen capture
-            handle = user32.FindWindowW(None, 'YEONHWA')
+            handle = user32.FindWindowW(None, 'Ranmelle')
             rect = wintypes.RECT()
             user32.GetWindowRect(handle, ctypes.pointer(rect))
             rect = (rect.left, rect.top, rect.right, rect.bottom)

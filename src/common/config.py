@@ -1,10 +1,14 @@
 """A collection of variables shared across multiple modules."""
 
-
+import time
 #########################
 #       Constants       #
 #########################
 RESOURCES_DIR = 'resources'
+
+
+SOLJANUS_DAWN_START_TIME = time.time()
+SOLJANUS_COUNT = 0
 
 
 #################################

@@ -122,13 +122,13 @@ class Bot(Configurable):
 
         print('\nSolving rune:')
         time.sleep(2)
-        press('left', 1, down_time=0.1)
-        time.sleep(0.1)
-        press('down', 1, down_time=0.1)
-        time.sleep(0.1)
-        press('down', 1, down_time=0.1)
+        press('right', 1, down_time=0.1)
         time.sleep(0.1)
         press('up', 1, down_time=0.1)
+        time.sleep(0.1)
+        press('up', 1, down_time=0.1)
+        time.sleep(0.1)
+        press('down', 1, down_time=0.1)
         time.sleep(0.1)
 
     def load_commands(self, file):

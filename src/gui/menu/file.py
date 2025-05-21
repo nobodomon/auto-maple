@@ -68,6 +68,7 @@ class File(MenuBarItem):
                                     title='Select a routine',
                                     filetypes=[('*.csv', '*.csv')])
         if file_path:
+            config.SOLJANUS_COUNT = 0
             config.routine.load(file_path)
 
     @staticmethod
