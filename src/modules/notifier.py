@@ -1,6 +1,7 @@
 """A module for detecting and notifying the user of dangerous in-game events."""
 
 from src.common import config, utils
+import pyautogui
 import time
 import os
 import cv2
@@ -102,6 +103,16 @@ class Notifier:
                 elif now - rune_start_time > self.rune_alert_delay:     # Alert if rune hasn't been solved
                     config.bot.rune_active = False
                     self._alert('siren')
+
+                # Check if level 300
+                if not config.bot.level_300:
+                    try:
+                        location = pyautogui.locateOnScreen('assets/level_300.png')
+                        if(str(location)):
+                            config.bot.level_300 = True
+                    except pyautogui.ImageNotFoundException:
+                        pass
+                            
             time.sleep(0.05)
 
     def _alert(self, name, volume=0.75):

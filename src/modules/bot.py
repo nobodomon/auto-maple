@@ -95,10 +95,16 @@ class Bot(Configurable):
 
                 # Execute next Point in the routine
                 element = config.routine[config.routine.index]
-                if self.rune_active and isinstance(element, Point) \
-                        and element.location == self.rune_closest_pos:
-                    self._solve_rune()
-                    self.rune_active = False
+                # if self.rune_active and isinstance(element, Point) \
+                #         and element.location == self.rune_closest_pos:
+                #     self._solve_rune()
+                #     self.rune_active = False
+
+                if self.level_300:
+                    time.sleep(1)
+                    press('f1')
+                    time.sleep(5)
+                    self.level_300 = False  # Wait for the level 300 buff to activate
                 element.execute()
                 config.routine.step()
             else:
