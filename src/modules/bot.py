@@ -105,7 +105,7 @@ class Bot(Configurable):
                 if self.level_300:
                     print('Level 300 attempting rb')
                     time.sleep(1)
-                    press('f1')
+                    press('f1', 1, down_time=0.2)  # Inherited from Configurable
                     time.sleep(5)
                     self.level_300 = False  # Wait for the level 300 buff to activate
                 element.execute()
