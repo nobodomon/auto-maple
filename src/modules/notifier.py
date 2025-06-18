@@ -66,10 +66,10 @@ class Notifier:
                 height, width, _ = frame.shape
                 minimap = config.capture.minimap['minimap']
 
-                # Check for unexpected black screen
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                if np.count_nonzero(gray < 15) / height / width > self.room_change_threshold:
-                    self._alert('siren')
+                # # Check for unexpected black screen
+                # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                # if np.count_nonzero(gray < 15) / height / width > self.room_change_threshold:
+                #     self._alert('siren')
 
                 # # Check for elite warning
                 # elite_frame = frame[height // 4:3 * height // 4, width // 4:3 * width // 4]
@@ -77,14 +77,14 @@ class Notifier:
                 # if len(elite) > 0:
                 #     self._alert('siren')
 
-                # Check for other players entering the map
-                filtered = utils.filter_color(minimap, OTHER_RANGES)
-                others = len(utils.multi_match(filtered, OTHER_TEMPLATE, threshold=0.5))
-                config.stage_fright = others > 0
-                if others != prev_others:
-                    if others > prev_others:
-                        self._ping('ding')
-                    prev_others = others
+                # # Check for other players entering the map
+                # filtered = utils.filter_color(minimap, OTHER_RANGES)
+                # others = len(utils.multi_match(filtered, OTHER_TEMPLATE, threshold=0.5))
+                # config.stage_fright = others > 0
+                # if others != prev_others:
+                #     if others > prev_others:
+                #         self._ping('ding')
+                #     prev_others = others
 
                 # Check for rune
                 now = time.time()
