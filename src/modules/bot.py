@@ -100,7 +100,9 @@ class Bot(Configurable):
                 #     self._solve_rune()
                 #     self.rune_active = False
 
+                # Check level 300
                 if self.level_300:
+                    print('Level 300 attempting rb')
                     time.sleep(1)
                     press('f1')
                     time.sleep(5)
