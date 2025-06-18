@@ -36,6 +36,7 @@ class Bot(Configurable):
         super().__init__('keybindings')
         config.bot = self
 
+        self.level_300 = False               # True if the player has the level 300
         self.rune_active = False
         self.rune_pos = (0, 0)
         self.rune_closest_pos = (0, 0)      # Location of the Point closest to rune
