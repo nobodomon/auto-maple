@@ -10,6 +10,7 @@ import threading
 import numpy as np
 import keyboard as kb
 from src.routine.components import Point
+from src.common.vkeys import press, click
 
 
 # A rune's symbol on the minimap
@@ -81,37 +82,40 @@ class Notifier:
                 # filtered = utils.filter_color(minimap, OTHER_RANGES)
                 # others = len(utils.multi_match(filtered, OTHER_TEMPLATE, threshold=0.5))
                 # config.stage_fright = others > 0
-                # if others != prev_others:
+                # if others != prev_others:xxxxxxxxxxxx
                 #     if others > prev_others:
                 #         self._ping('ding')
                 #     prev_others = others
 
-                # Check for rune
-                now = time.time()
-                if not config.bot.rune_active:
-                    filtered = utils.filter_color(minimap, RUNE_RANGES)
-                    matches = utils.multi_match(filtered, RUNE_TEMPLATE, threshold=0.9)
-                    rune_start_time = now
-                    if matches and config.routine.sequence:
-                        abs_rune_pos = (matches[0][0], matches[0][1])
-                        config.bot.rune_pos = utils.convert_to_relative(abs_rune_pos, minimap)
-                        distances = list(map(distance_to_rune, config.routine.sequence))
-                        index = np.argmin(distances)
-                        config.bot.rune_closest_pos = config.routine[index].location
-                        config.bot.rune_active = True
-                        self._ping('rune_appeared', volume=0.75)
-                elif now - rune_start_time > self.rune_alert_delay:     # Alert if rune hasn't been solved
-                    config.bot.rune_active = False
-                    self._alert('siren')
-
-                # Check if level 300
+                # # Check for rune
+                # now = time.time()
+                # if not config.bot.rune_active:
+                #     filtered = utils.filter_color(minimap, RUNE_RANGES)
+                #     matches = utils.multi_match(filtered, RUNE_TEMPLATE, threshold=0.9)
+                #     rune_start_time = now
+                #     if matches and config.routine.sequence:
+                #         abs_rune_pos = (matches[0][0], matches[0][1])
+                #         config.bot.rune_pos = utils.convert_to_relative(abs_rune_pos, minimap)
+                #         distances = list(map(distance_to_rune, config.routine.sequence))
+                #         index = np.argmin(distances)
+                #         config.bot.rune_closest_pos = config.routine[index].location
+                #         config.bot.rune_active = True
+                #         self._ping('rune_appeared', volume=0.75)
+                # elif now - rune_start_time > self.rune_alert_delay:     # Alert if rune hasn't been solved
+                #     config.bot.rune_active = False
+                #     self._alert('siren')
+                
+                # Check for level 300 
                 if not config.bot.level_300:
                     try:
-                        location = pyautogui.locateOnScreen('assets/level_300.png')
+                        location = pyautogui.locateOnScreen('assets/level_300.png',grayscale=True, confidence=0.990)
                         if(str(location)):
+                            print('\n[!] Level 300 detected')
                             config.bot.level_300 = True
                     except pyautogui.ImageNotFoundException:
+                        #print('\n[!] Level 300 not detected')
                         pass
+                    
                             
             time.sleep(0.05)
 

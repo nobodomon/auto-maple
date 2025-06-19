@@ -80,12 +80,7 @@ class Bot(Configurable):
         last_fed = time.time()
         while True:
             # Check level 300
-            if self.level_300:
-                print('Level 300 attempting rb')
-                time.sleep(1)
-                press('f1', 1, down_time=0.2)  # Inherited from Configurable
-                time.sleep(5)
-                self.level_300 = False  # Wait for the level 300 buff to activate
+            
             if config.enabled and len(config.routine) > 0:
                 # Buff and feed pets
                 self.command_book.buff.main()
@@ -107,8 +102,13 @@ class Bot(Configurable):
                 #         and element.location == self.rune_closest_pos:
                 #     self._solve_rune()
                 #     self.rune_active = False
-
-                
+                if self.level_300:
+                    print('Level 300 attempting rb')
+                    time.sleep(5)
+                    press('f1', 1, down_time=0.2)  # Inherited from Configurable
+                    time.sleep(10)
+                    self.level_300 = False  # Wait for 
+                    
                 element.execute()
                 config.routine.step()
             else:
