@@ -102,12 +102,12 @@ class Bot(Configurable):
                 #         and element.location == self.rune_closest_pos:
                 #     self._solve_rune()
                 #     self.rune_active = False
-                if self.level_300:
-                    print('Level 300 attempting rb')
-                    time.sleep(5)
-                    press('f1', 1, down_time=0.2)  # Inherited from Configurable
-                    time.sleep(10)
-                    self.level_300 = False  # Wait for 
+                # if self.level_300:
+                #     print('Level 300 attempting rb')
+                #     time.sleep(5)
+                #     press('f1', 1, down_time=0.2)  # Inherited from Configurable
+                #     time.sleep(10)
+                #     self.level_300 = False  # Wait for 
                     
                 element.execute()
                 config.routine.step()
@@ -129,6 +129,51 @@ class Bot(Configurable):
         adjust(*self.rune_pos).execute()
         time.sleep(0.2)
         press(self.config['Interact'], 1, down_time=0.2)        # Inherited from Configurable
+
+
+        # """
+        # Moves to the position of the rune and solves the arrow-key puzzle.
+        # :param model:   The TensorFlow model to classify with.
+        # :param sct:     The mss instance object with which to take screenshots.
+        # :return:        None
+        # """
+
+        # move = self.command_book['move']
+        # move(*self.rune_pos).execute()
+        # adjust = self.command_book['adjust']
+        # adjust(*self.rune_pos).execute()
+        # time.sleep(0.2)
+        # press(self.config['Interact'], 1, down_time=0.2)        # Inherited from Configurable
+
+        # print('\nSolving rune:')
+        # inferences = []
+        # for _ in range(15):
+        #     frame = config.capture.frame
+        #     solution = detection.merge_detection(model, frame)
+        #     if solution:
+        #         print(', '.join(solution))
+        #         if solution in inferences:
+        #             print('Solution found, entering result')
+        #             for arrow in solution:
+        #                 press(arrow, 1, down_time=0.1)
+        #             time.sleep(1)
+        #             for _ in range(3):
+        #                 time.sleep(0.3)
+        #                 frame = config.capture.frame
+        #                 rune_buff = utils.multi_match(frame[:frame.shape[0] // 8, :],
+        #                                               RUNE_BUFF_TEMPLATE,
+        #                                               threshold=0.9)
+        #                 if rune_buff:
+        #                     rune_buff_pos = min(rune_buff, key=lambda p: p[0])
+        #                     target = (
+        #                         round(rune_buff_pos[0] + config.capture.window['left']),
+        #                         round(rune_buff_pos[1] + config.capture.window['top'])
+        #                     )
+        #                     click(target, button='right')
+        #             self.rune_active = False
+        #             break
+        #         elif len(solution) == 4:
+        #             inferences.append(solution)
 
         print('\nSolving rune:')
         time.sleep(2)

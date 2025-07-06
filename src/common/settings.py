@@ -91,7 +91,7 @@ move_tolerance = 0.04
 adjust_tolerance = 0.01
 
 # Whether the bot should save new player positions to the current layout
-record_layout = False
+record_layout = True
 
 # The amount of time (in seconds) to wait between each call to the 'buff' command
 buff_cooldown = 183

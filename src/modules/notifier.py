@@ -30,6 +30,8 @@ OTHER_TEMPLATE = cv2.cvtColor(other_filtered, cv2.COLOR_BGR2GRAY)
 # The Elite Boss's warning sign
 ELITE_TEMPLATE = cv2.imread('assets/elite_template.jpg', 0)
 
+LEVEL_300_TEMPLATE = cv2.imread('assets/level_300.png', 0)
+
 
 def get_alert_path(name):
     return os.path.join(Notifier.ALERTS_DIR, f'{name}.mp3')
@@ -50,6 +52,7 @@ class Notifier:
 
         self.room_change_threshold = 0.9
         self.rune_alert_delay = 270         # 4.5 minutes
+        self.f9_pressed = False
 
     def start(self):
         """Starts this Notifier's thread."""
@@ -106,15 +109,52 @@ class Notifier:
                 #     self._alert('siren')
                 
                 # Check for level 300 
-                if not config.bot.level_300:
-                    try:
-                        location = pyautogui.locateOnScreen('assets/level_300.png',grayscale=True, confidence=0.990)
-                        if(str(location)):
-                            print('\n[!] Level 300 detected')
-                            config.bot.level_300 = True
-                    except pyautogui.ImageNotFoundException:
-                        #print('\n[!] Level 300 not detected')
-                        pass
+
+                try :
+
+                    height, width, _ = frame.shape
+                    row_height = height // 6
+                    col_width = width // 5
+
+                    # Last row: index 5 (since 0-based), 3rd column: index 2
+                    row_start = row_height * 5
+                    row_end = height  # or row_height * 6
+                    col_start = col_width * 2
+                    col_end = col_width * 3
+
+                    region = frame[row_start:row_end, col_start:col_end]
+                    is_level_300 = utils.multi_match(region,
+                        LEVEL_300_TEMPLATE,
+                        threshold=0.990
+                    )
+
+                    if(is_level_300):
+                        print('\n[!] Level 300 detected')
+                        if(self.f9_pressed):
+                            press('f9', 1)
+                            self.f9_pressed = False
+                        else:
+                            press('f10', 1)
+                            self.f9_pressed = True
+                        time.sleep(5)
+                except:
+                    print('\n[!] Level 300 not detected')
+                    pass
+                # try:
+                #     location = pyautogui.locateOnScreen('assets/level_300.png',grayscale=True, confidence=0.990)
+                #     if(str(location)):
+                #         print('\n[!] Level 300 detected')
+                #         if(self.f9_pressed):
+                #             press('f9', 1)
+                #             self.f9_pressed = False
+                #         else:
+                #             press('f10', 1)
+                #             self.f9_pressed = True
+                #         time.sleep(5)
+                # except pyautogui.ImageNotFoundException:
+                #     #print('\n[!] Level 300 not detected')
+                #     pass
+                    
                     
                             
             time.sleep(0.05)
